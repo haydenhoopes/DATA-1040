@@ -5,6 +5,13 @@
 # 
 # This tutorial will use some of the Python libraries that you will be learning in this course to demonstrate how they can be used in data analysis. The goal of this assignment is not for you to write code, but rather for you to learn to use Markdown instead of inline Python comments since they provide your code with additional formatting options and thus greater readability. As you reformat the comments in this code to be Markdown, I hope that you may also gain an appreciation for how Jupyter Lab works and start thinking about how you will use the libraries that you will learn in your future data analytics projects.
 
+# #### Install matplotlib and pandas
+# You probably don't have the matplotlib or pandas package installed yet, so the following line of code installs them for you from Jupyter Lab.
+
+
+get_ipython().system('pip install matplotlib pandas')
+
+
 # #### Import the pandas library
 # Pandas is a library that converts data into Python objects called "dataframes", which are similar to tables in structure. However, unlike regular tables, pandas dataframes come equipped with pre-built functions that allow for quick analysis and cleaning.
 
@@ -15,7 +22,7 @@ import pandas as pd
 # #### Import the dataset and save to a variable
 # In the first line of this cell, I save the name of the data file as a string to a variable. That makes it easier to read.
 # 
-# Then, I use the pandas method `read_csv()` to import the CSV file into a pandas dataframe, assigning it into a variable that I will easily remember as a dataframe "df".
+# Then, I use the pandas function `read_csv()` to import the CSV file into a pandas dataframe, assigning it into a variable that I will easily remember as a dataframe "df".
 
 
 filename = 'iris.csv'
@@ -24,12 +31,12 @@ df = pd.read_csv(filename) # Pandas automatically converts this CSV file
 
 
 # #### View the first five rows of the data frame
-# The `df.head()` function automatically returns the dataframe's first ten rows, although any number can be passed in to see that many rows. In this case, I pass in the number 5 to see the first five rows.
+# The `df.head()` function automatically returns the dataframe's first five rows, although any number can be passed in to see that many rows.
 # 
-# You can also use the function `df.tail()` to get the last ten rows of the dataframe.
+# You can also use the function `df.tail()` to get the last five rows of the dataframe.
 
 
-df.head(5)
+df.head()
 
 
 # #### Get the column names and types
@@ -124,7 +131,7 @@ plt.show()
 # 
 # The first task is to clear the figure and get a new Axis. You can use `fig.clear()` to clear the figure, but the easiest way to make a new figure and Axis is simply by calling the code above again.
 
-# Next, we'll make a different list of values for each species. These lines filter out the rows of the original data frame and assign the new data frame to a variable, keeping only the column `petal_length`
+# Next, we'll make a different dataframe of values for each species of iris. Then, we add the `petal_length` column from each dataframe to a list, creating a list of lists, where each item represents a different iris species.
 
 
 setosa_df = df[ df['species'] == 'Iris-setosa']
@@ -136,11 +143,10 @@ data = [setosa_df['petal_length'], versicolor_df['petal_length'], virginica_df['
 # Now, lets run the box plot function of the axis
 
 
-plt.figure(figsize=(10,10), dpi=80)
 plt.title("Petal Lengths Of Irises by Species")
 plt.xlabel("Species")
 
-plt.boxplot(data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'], patch_artist=True)
+plt.boxplot(data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
 plt.show()
 
 
@@ -158,26 +164,21 @@ fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(20, 12))
 
 ax1.set_title('Sepal Width of Irises by Species')
 ax1.set_ylim([0,5])
-ax1 = ax1.boxplot(sepalwidth_data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'], patch_artist=True)
+ax1 = ax1.boxplot(sepalwidth_data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
 
 ax2.set_title('Petal Width of Irises by Species')
 ax2.set_ylim([0,5])
-ax2 = ax2.boxplot(petalwidth_data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'], patch_artist=True)
+ax2 = ax2.boxplot(petalwidth_data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
 
 ax3.set_title('Sepal Length of Irises by Species')
 ax3.set_ylim([0,8])
-ax3 = ax3.boxplot(sepallength_data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'], patch_artist=True)
+ax3 = ax3.boxplot(sepallength_data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
 
 ax4.set_title('Petal Length of Irises by Species')
 ax4.set_ylim([0,8])
-ax4 = ax4.boxplot(data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'], patch_artist=True)
-
-colors = ['pink', 'lightblue', 'lightgreen'] # Set colors
-for bplot in (ax1, ax2, ax3, ax4):
-    for patch, color in zip(bplot['boxes'], colors):
-        patch.set_facecolor(color)
+ax4 = ax4.boxplot(data, labels=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
 
 plt.show()
 
 
-# This has been a short exploratory analysis of the Iris data set. There is definitely more that we could do in terms of of visualizations and analyses to learn more about the differences between these irises, but the visualizations produced thus far suffice to give us a quick idea of how the 
+# This has been a short exploratory analysis of the Iris data set. There is definitely more that we could do in terms of of visualizations and analyses to learn more about the differences between these irises, but the visualizations produced thus far suffice to give us a quick idea of what the different data sets look like.
